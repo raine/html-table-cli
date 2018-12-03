@@ -14,10 +14,13 @@ const columns = Object.keys(data[0]).map((key) => ({
 const App = () => (
   <div>
     <ReactTable
-      filterable={true}
+      filterable
       data={data}
       columns={columns}
       defaultPageSize={50}
+      defaultFilterMethod={(filter, row) =>
+        row[filter.id].toLowerCase().includes(filter.value.toLowerCase())
+      }
     />
   </div>
 )
