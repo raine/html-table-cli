@@ -18,6 +18,7 @@ const App = () => (
       data={data}
       columns={columns}
       defaultPageSize={50}
+      className="-striped -highlight"
       defaultFilterMethod={(filter, row) =>
         row[filter.id].toLowerCase().includes(filter.value.toLowerCase())
       }
