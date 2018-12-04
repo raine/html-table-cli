@@ -13,15 +13,21 @@ const jsx = (bindings, str) => (
 
 const data = window.HTML_TABLE_DATA
 const opts = window.HTML_TABLE_OPTS
+
+console.log(`[debug] opts`, opts)
+console.log(`[debug] data`, data)
+
 const columnKeys = opts.cols || Object.keys(data[0])
 const columns = columnKeys.map((key) => ({
   Header: (row) =>
-    opts.col[key] && opts.col[key].header
+    console.log(`[debug] --col.${key}.header`, { row, key }) ||
+    (opts.col[key] && opts.col[key].header)
       ? jsx({ row, key }, opts.col[key].header)
       : capitalize(key),
   accessor: key,
   Cell: (row) =>
-    opts.col[key] && opts.col[key].cell
+    console.log(`[debug] --col.${key}.header`, { row, key }) ||
+    (opts.col[key] && opts.col[key].cell)
       ? jsx({ row, key }, opts.col[key].cell)
       : row.value
 }))
