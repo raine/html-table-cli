@@ -45,7 +45,6 @@ const generateHTML = (argv) =>
 
 const main = async () => {
   const argv = parseArgv(process.argv.slice(2))
-  console.log(argv)
 
   if (argv.help) {
     console.error(HELP)
