@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build-app": "rm -rf app-dist && parcel build --no-minify --no-source-maps app-template/index.template.html --public-url '.' --out-dir app-dist && inline-assets app-dist/index.template.html > app-dist/index.html && rm app-dist/*.{js,css,template.html}",
-    "watch-app": "nodemon --watch app-template --ext js,html --exec yarn build-app"
+    "watch-app": "nodemon --watch app-template --ext js,html,css --exec yarn build-app"
   },
   "dependencies": {
     "JSONStream": "^1.3.5",
