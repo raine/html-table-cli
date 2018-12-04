@@ -9,7 +9,7 @@ Usage: html-table
   --col.<key>.header   set how header for a column is rendered
   --col.<key>.title    set how cell for a column is rendered
   --cols               comma-separated list of keys to be shown as columns
-  --no-generated       hide generated timestamp at bottom
+  --generated          render a generated-at timestamp at the bottom
 
   Where <key> is name of a key that appears in the provided list of objects
 `.trim()
@@ -22,7 +22,7 @@ const parseArgv = (argv) => {
     },
     string: ['cols'],
     boolean: ['open', 'generated'],
-    default: { generated: true }
+    default: { generated: false }
   })
 
   if (parsed.cols) parsed.cols = parsed.cols.split(',')
