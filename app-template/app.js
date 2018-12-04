@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import ReactTable from 'react-table'
 import JsxParser from 'react-jsx-parser'
+import { mapValues } from 'lodash'
 
 import './reboot.css'
 import './styles.css'
@@ -14,6 +15,11 @@ const jsx = (bindings, str) => (
 
 const data = window.HTML_TABLE_DATA
 const opts = window.HTML_TABLE_OPTS
+
+opts.col = mapValues(opts.col, (colOpts) => ({
+  ...colOpts,
+  parse: colOpts.parse ? eval(colOpts.parse) : undefined
+}))
 
 console.log(`[debug] opts`, opts)
 console.log(`[debug] data`, data)
@@ -30,7 +36,7 @@ const columns = columnKeys.map((key) => ({
     console.log(`[debug] --col.${key}.header`, { row, key }) ||
     (opts.col[key] && opts.col[key].cell)
       ? jsx({ row, key }, opts.col[key].cell)
-      : row.value
+      : row.value.toString()
 }))
 
 const Footer = ({ timestamp }) => (
@@ -41,7 +47,13 @@ const App = () => (
   <div>
     <ReactTable
       filterable
-      data={data}
+      data={data.map((row) =>
+        mapValues(
+          row,
+          (v, k) =>
+            opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) : v
+        )
+      )}
       columns={columns}
       defaultPageSize={50}
       className="-striped -highlight"

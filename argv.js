@@ -8,6 +8,7 @@ Usage: html-table
 
   --col.<key>.header   set how header for a column is rendered
   --col.<key>.title    set how cell for a column is rendered
+  --col.<key>.parse    function to apply to values of specific column
   --cols               comma-separated list of keys to be shown as columns
   --generated          render a generated-at timestamp at the bottom
 
@@ -26,6 +27,7 @@ const parseArgv = (argv) => {
   })
 
   if (parsed.cols) parsed.cols = parsed.cols.split(',')
+  parsed.col = parsed.col || {}
   return parsed
 }
 

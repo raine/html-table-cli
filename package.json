@@ -6,6 +6,7 @@
   "devDependencies": {
     "cssnano": "^4.1.7",
     "inline-assets": "^1.4.1",
+    "lodash": "^4.17.11",
     "nodemon": "^1.18.7",
     "parcel": "^1.10.3",
     "parcel-bundler": "^1.10.3",
@@ -15,7 +16,7 @@
     "react-table": "^6.8.6"
   },
   "scripts": {
-    "build-app": "rm -rf app-dist && parcel build --no-minify --no-source-maps app-template/index.template.html --public-url '.' --out-dir app-dist && inline-assets app-dist/index.template.html > app-dist/index.html && rm app-dist/*.{js,css,template.html}",
+    "build-app": "rm -rf app-dist && parcel build --no-source-maps app-template/index.template.html --public-url '.' --out-dir app-dist && inline-assets app-dist/index.template.html > app-dist/index.html && rm app-dist/*.{js,css,template.html}",
     "watch-app": "nodemon --watch app-template --ext js,html,css --exec yarn build-app"
   },
   "dependencies": {
