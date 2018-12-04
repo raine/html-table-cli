@@ -1,5 +1,6 @@
 todo.org
 .gitignore
 *.log
-*.json
 app-template
+*.json
+.ignore
