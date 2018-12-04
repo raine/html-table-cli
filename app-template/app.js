@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import ReactTable from 'react-table'
 import JsxParser from 'react-jsx-parser'
 
+import './reboot.css'
 import './styles.css'
 import 'react-table/react-table.css'
 
@@ -32,6 +33,10 @@ const columns = columnKeys.map((key) => ({
       : row.value
 }))
 
+const Footer = ({ timestamp }) => (
+  <div className="footer">Generated at {new Date(timestamp).toString()}</div>
+)
+
 const App = () => (
   <div>
     <ReactTable
@@ -44,6 +49,7 @@ const App = () => (
         row[filter.id].toLowerCase().includes(filter.value.toLowerCase())
       }
     />
+    {opts.generated && <Footer timestamp={opts.timestamp} />}
   </div>
 )
 

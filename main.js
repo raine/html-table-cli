@@ -29,7 +29,7 @@ const readStdinJSON = () =>
       })
   })
 
-const generateHTML = (argv) =>
+const generateHTML = (opts) =>
   Promise.all([
     readFile(path.join(__dirname, 'app-dist', 'index.html'), 'utf8'),
     readStdinJSON()
@@ -38,7 +38,7 @@ const generateHTML = (argv) =>
     doc('head').append(`
     <script type="text/javascript" charset="utf-8">
       window.HTML_TABLE_DATA = ${JSON.stringify(data)};
-      window.HTML_TABLE_OPTS = ${JSON.stringify(argv)};
+      window.HTML_TABLE_OPTS = ${JSON.stringify(opts)};
     </script>`)
     return doc.html()
   })
@@ -52,7 +52,7 @@ const main = async () => {
     return
   }
 
-  const html = await generateHTML(argv)
+  const html = await generateHTML({ ...argv, timestamp: new Date() })
   if (argv.open) {
     const tmpFile = tempy.file({ extension: 'html' })
     await writeFile(tmpFile, html, 'utf8')
