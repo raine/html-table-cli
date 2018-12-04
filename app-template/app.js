@@ -36,7 +36,9 @@ const columns = columnKeys.map((key) => ({
     console.log(`[debug] --col.${key}.header`, { row, key }) ||
     (opts.col[key] && opts.col[key].cell)
       ? jsx({ row, key }, opts.col[key].cell)
-      : row.value.toString()
+      : row.value && typeof row.value.toString === 'function'
+        ? row.value.toString()
+        : row.value
 }))
 
 const Footer = ({ timestamp }) => (
@@ -57,9 +59,12 @@ const App = () => (
       columns={columns}
       defaultPageSize={50}
       className="-striped -highlight"
-      defaultFilterMethod={(filter, row) =>
-        row[filter.id].toLowerCase().includes(filter.value.toLowerCase())
-      }
+      defaultFilterMethod={(filter, row) => {
+        const rowValue = row[filter.id]
+        return typeof rowValue === 'string'
+          ? rowValue.toLowerCase().includes(filter.value.toLowerCase())
+          : false
+      }}
     />
     {opts.generated && <Footer timestamp={opts.timestamp} />}
   </div>
