@@ -1,14 +1,29 @@
 import React from 'react'
 import { render } from 'react-dom'
 import ReactTable from 'react-table'
+import JsxParser from 'react-jsx-parser'
 
 import './styles.css'
 import 'react-table/react-table.css'
 
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1)
+const jsx = (bindings, str) => (
+  <JsxParser bindings={bindings} jsx={str} renderInWrapper={false} />
+)
+
 const data = window.HTML_TABLE_DATA
-const columns = Object.keys(data[0]).map((key) => ({
-  Header: key,
-  accessor: key
+const opts = window.HTML_TABLE_OPTS
+const columnKeys = opts.cols || Object.keys(data[0])
+const columns = columnKeys.map((key) => ({
+  Header: (row) =>
+    opts.col[key] && opts.col[key].header
+      ? jsx({ row, key }, opts.col[key].header)
+      : capitalize(key),
+  accessor: key,
+  Cell: (row) =>
+    opts.col[key] && opts.col[key].cell
+      ? jsx({ row, key }, opts.col[key].cell)
+      : row.value
 }))
 
 const App = () => (
