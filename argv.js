@@ -11,6 +11,7 @@ Usage: html-table [options]
 
   Customization:
 
+  --col.$key.width    set width of a column
   --col.$key.header   set how header for a column is rendered
   --col.$key.title    set how cell for a column is rendered
   --col.$key.parse    function to apply to values of specific column

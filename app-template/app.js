@@ -32,13 +32,17 @@ const columns = columnKeys.map((key) => ({
       ? jsx({ row, key }, opts.col[key].header)
       : capitalize(key),
   accessor: key,
+  maxWidth:
+    opts.col[key] && opts.col[key].width != null
+      ? opts.col[key].width
+      : undefined,
   Cell: (row) =>
     console.log(`[debug] --col.${key}.header`, { row, key }) ||
     (opts.col[key] && opts.col[key].cell)
       ? jsx({ row, key }, opts.col[key].cell)
       : row.value && typeof row.value.toString === 'function'
-        ? row.value.toString()
-        : row.value
+      ? row.value.toString()
+      : row.value
 }))
 
 const Footer = ({ timestamp }) => (
