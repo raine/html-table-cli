@@ -1,18 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import ReactTable from 'react-table'
-import JsxParser from 'react-jsx-parser'
 import { mapValues } from 'lodash'
+import eskape from 'eskape'
 
 import './reboot.css'
 import 'react-table/react-table.css'
 import './styles.scss'
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1)
-const jsx = (bindings, str) => (
-  <JsxParser bindings={bindings} jsx={str} renderInWrapper={false} />
-)
-
 const data = window.HTML_TABLE_DATA
 const opts = window.HTML_TABLE_OPTS
 
@@ -24,31 +20,54 @@ opts.col = mapValues(opts.col, (colOpts) => ({
 console.log(`[debug] opts`, opts)
 console.log(`[debug] data`, data)
 
+const renderWithTemplateString = (str, bindings) => ({
+  __html: new Function(
+    'with(this) { return eskape`' + str.replace(/`/g, '\\`') + '`}'
+  ).call({
+    ...bindings,
+    eskape
+  })
+})
+
 const columnKeys = opts.cols || Object.keys(data[0])
-const columns = columnKeys.map((key) => ({
-  Header: (row) => {
-    const bindings = { row, key, ...row.original }
-    console.log(`[debug] --col.${key}.header`, bindings)
-    return opts.col[key] && opts.col[key].header != null
-      ? jsx(bindings, opts.col[key].header)
-      : capitalize(key)
-  },
-  accessor: key,
-  maxWidth:
-    opts.col[key] && opts.col[key].width != null
-      ? opts.col[key].width
-      : undefined,
-  Cell: (row) => {
-    const bindings = { row, key, ...row.original }
-    console.log(`[debug] --col.${key}.header`, bindings)
-    return opts.col[key] && opts.col[key].cell
-      ? jsx(bindings, opts.col[key].cell)
-      : row.value && typeof row.value.toString === 'function'
-      ? row.value.toString()
-      : row.value
-  },
-  filterable: (opts.col[key] && opts.col[key].filterable) || false
-}))
+const columns = columnKeys.map((key) => {
+  const colOpts = opts.col[key]
+  return {
+    Header: (row) => {
+      const bindings = { row, key, ...row.original }
+      console.log(`[debug] --col.${key}.header`, bindings)
+      return colOpts && colOpts.header != null ? (
+        <div
+          dangerouslySetInnerHTML={renderWithTemplateString(
+            colOpts.header,
+            bindings
+          )}
+        />
+      ) : (
+        capitalize(key)
+      )
+    },
+    accessor: key,
+    maxWidth: colOpts && colOpts.width != null ? colOpts.width : undefined,
+    Cell: (row) => {
+      const bindings = { row, key, ...row.original }
+      console.log(`[debug] --col.${key}.header`, bindings)
+      return colOpts && colOpts.cell ? (
+        <div
+          dangerouslySetInnerHTML={renderWithTemplateString(
+            colOpts.cell,
+            bindings
+          )}
+        />
+      ) : row.value && typeof row.value.toString === 'function' ? (
+        row.value.toString()
+      ) : (
+        row.value
+      )
+    },
+    filterable: (colOpts && colOpts.filterable) || false
+  }
+})
 
 const Footer = ({ timestamp }) => (
   <div className="footer">Generated at {new Date(timestamp).toString()}</div>

@@ -6,8 +6,10 @@
   "license": "MIT",
   "devDependencies": {
     "cssnano": "^4.1.7",
+    "eskape": "^1.2.0",
     "inline-assets": "^1.4.1",
     "lodash": "^4.17.11",
+    "mustache": "^3.0.1",
     "nodemon": "^1.18.7",
     "parcel": "^1.10.3",
     "parcel-bundler": "^1.10.3",
