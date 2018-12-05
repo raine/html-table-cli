@@ -5,8 +5,8 @@ import JsxParser from 'react-jsx-parser'
 import { mapValues } from 'lodash'
 
 import './reboot.css'
-import './styles.css'
 import 'react-table/react-table.css'
+import './styles.scss'
 
 const capitalize = (str) => str[0].toUpperCase() + str.slice(1)
 const jsx = (bindings, str) => (
@@ -46,14 +46,12 @@ const Footer = ({ timestamp }) => (
 )
 
 const App = () => (
-  <div>
+  <div class="html-table">
     <ReactTable
       filterable
       data={data.map((row) =>
-        mapValues(
-          row,
-          (v, k) =>
-            opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) : v
+        mapValues(row, (v, k) =>
+          opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) : v
         )
       )}
       columns={columns}

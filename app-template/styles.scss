@@ -1,0 +1,32 @@
+.footer {
+  font-size: 14px;
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.html-table {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 576px)  {
+    max-width: 540px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  @media (min-width: 768px)  { max-width: 720px; }
+  @media (min-width: 992px)  { max-width: 960px; }
+  @media (min-width: 1200px) { max-width: 1140px; }
+}
+
+.ReactTable {
+  border: 0;
+
+  @media (min-width: 576px) {
+     border: 1px solid rgba(0,0,0,.1);
+  }
+}
