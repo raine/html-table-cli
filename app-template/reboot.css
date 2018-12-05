@@ -131,7 +131,7 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: hsl(217, 71%, 53%);
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
