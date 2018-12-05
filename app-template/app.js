@@ -26,20 +26,23 @@ console.log(`[debug] data`, data)
 
 const columnKeys = opts.cols || Object.keys(data[0])
 const columns = columnKeys.map((key) => ({
-  Header: (row) =>
-    console.log(`[debug] --col.${key}.header`, { row, key }) ||
-    (opts.col[key] && opts.col[key].header != null)
-      ? jsx({ row, key }, opts.col[key].header)
-      : capitalize(key),
+  Header: (row) => {
+    const bindings = { row, key, ...row.original }
+    console.log(`[debug] --col.${key}.header`, bindings)
+    return opts.col[key] && opts.col[key].header != null
+      ? jsx(bindings, opts.col[key].header)
+      : capitalize(key)
+  },
   accessor: key,
   maxWidth:
     opts.col[key] && opts.col[key].width != null
       ? opts.col[key].width
       : undefined,
-  Cell: (row) =>
-    console.log(`[debug] --col.${key}.header`, { row, key }) ||
-    (opts.col[key] && opts.col[key].cell)
-      ? jsx({ row, key }, opts.col[key].cell)
+  Cell: (row) => {
+    const bindings = { row, key, ...row.original }
+    console.log(`[debug] --col.${key}.header`, bindings)
+    return opts.col[key] && opts.col[key].cell
+      ? jsx(bindings, opts.col[key].cell)
       : row.value && typeof row.value.toString === 'function'
       ? row.value.toString()
       : row.value
