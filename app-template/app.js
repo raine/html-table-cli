@@ -43,6 +43,8 @@ const columns = columnKeys.map((key) => ({
       : row.value && typeof row.value.toString === 'function'
       ? row.value.toString()
       : row.value
+  },
+  filterable: (opts.col[key] && opts.col[key].filterable) || false
 }))
 
 const Footer = ({ timestamp }) => (
@@ -52,7 +54,6 @@ const Footer = ({ timestamp }) => (
 const App = () => (
   <div class="html-table">
     <ReactTable
-      filterable
       data={data.map((row) =>
         mapValues(row, (v, k) =>
           opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) : v

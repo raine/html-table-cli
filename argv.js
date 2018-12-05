@@ -11,13 +11,14 @@ Usage: html-table [options]
 
   Customization:
 
-  --col.$key.width    set width of a column
-  --col.$key.header   set how header for a column is rendered
-  --col.$key.title    set how cell for a column is rendered
-  --col.$key.parse    function to apply to values of specific column
-  --cols              comma-separated list of keys to be shown as columns
-  --generated-at      show a timestamp of page generation at bottom
-  --[no-]pagination   enable & disable pagination
+  --col.$key.width       set width of a column
+  --col.$key.header      set how header for a column is rendered
+  --col.$key.cell        set how cell for a column is rendered
+  --col.$key.parse       function to apply to values of specific column
+  --col.$key.filterable  make column filterable
+  --cols                 comma-separated list of keys to be shown as columns
+  --generated-at         show a timestamp of page generation at bottom
+  --[no-]pagination      enable & disable pagination
 
   Where $key is name of a key that appears in the provided list of objects.
 
