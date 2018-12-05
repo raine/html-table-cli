@@ -69,7 +69,7 @@ const App = () => (
           : false
       }}
     />
-    {opts.generated && <Footer timestamp={opts.timestamp} />}
+    {opts['generated-at'] && <Footer timestamp={opts.timestamp} />}
   </div>
 )
 
