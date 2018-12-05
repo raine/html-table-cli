@@ -28,7 +28,7 @@ const columnKeys = opts.cols || Object.keys(data[0])
 const columns = columnKeys.map((key) => ({
   Header: (row) =>
     console.log(`[debug] --col.${key}.header`, { row, key }) ||
-    (opts.col[key] && opts.col[key].header)
+    (opts.col[key] && opts.col[key].header != null)
       ? jsx({ row, key }, opts.col[key].header)
       : capitalize(key),
   accessor: key,
