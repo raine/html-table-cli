@@ -11,13 +11,13 @@ Usage: html-table [options]
 
   Customization:
 
-  --col.<key>.header   set how header for a column is rendered
-  --col.<key>.title    set how cell for a column is rendered
-  --col.<key>.parse    function to apply to values of specific column
-  --cols               comma-separated list of keys to be shown as columns
-  --generated          render a generated-at timestamp at the bottom
+  --col.$key.header   set how header for a column is rendered
+  --col.$key.title    set how cell for a column is rendered
+  --col.$key.parse    function to apply to values of specific column
+  --cols              comma-separated list of keys to be shown as columns
+  --generated         render a generated-at timestamp at the bottom
 
-  Where <key> is name of a key that appears in the provided list of objects.
+  Where $key is name of a key that appears in the provided list of objects.
 
   Examples:
 
