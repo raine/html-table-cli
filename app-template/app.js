@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import ReactTable from 'react-table'
-import { mapValues } from 'lodash'
+import { mapValues, memoize } from 'lodash'
 import eskape from 'eskape'
 
 import './reboot.css'
@@ -20,27 +20,33 @@ opts.col = mapValues(opts.col, (colOpts) => ({
 console.log(`[debug] opts`, opts)
 console.log(`[debug] data`, data)
 
-const renderWithTemplateString = (str, bindings) => ({
-  __html: new Function(
-    'with(this) { return eskape`' + str.replace(/`/g, '\\`') + '`}'
-  ).call({
-    ...bindings,
-    eskape
-  })
-})
+const renderWithTemplateString = memoize(
+  (str, bindings, props) => ({
+    __html: new Function(
+      'with(this) { return eskape`' + str.replace(/`/g, '\\`') + '`}'
+    ).call({
+      ...bindings,
+      eskape
+    })
+  }),
+  (str, bindings, props) =>
+    (props.column && props.data) ? `${props.column.id}__header` :
+    (props.column && props.row) ? `${props.column.id}__${props.index}` : null
+)
 
 const columnKeys = opts.cols || Object.keys(data[0])
 const columns = columnKeys.map((key) => {
   const colOpts = opts.col[key]
   return {
-    Header: (row) => {
-      const bindings = { row, key, ...row.original }
-      console.log(`[debug] --col.${key}.header`, bindings)
+    Header: (props) => {
+      const bindings = { props, key, ...props.original }
+      // console.log(`[debug] --col.${key}.header`, bindings)
       return colOpts && colOpts.header != null ? (
         <div
           dangerouslySetInnerHTML={renderWithTemplateString(
             colOpts.header,
-            bindings
+            bindings,
+            props
           )}
         />
       ) : (
@@ -49,20 +55,21 @@ const columns = columnKeys.map((key) => {
     },
     accessor: key,
     maxWidth: colOpts && colOpts.width != null ? colOpts.width : undefined,
-    Cell: (row) => {
-      const bindings = { row, key, ...row.original }
-      console.log(`[debug] --col.${key}.header`, bindings)
+    Cell: (props) => {
+      const bindings = { props, key, ...props.original }
+      // console.log(`[debug] --col.${key}.cell`, bindings)
       return colOpts && colOpts.cell ? (
         <div
           dangerouslySetInnerHTML={renderWithTemplateString(
             colOpts.cell,
-            bindings
+            bindings,
+            props
           )}
         />
-      ) : row.value && typeof row.value.toString === 'function' ? (
-        row.value.toString()
+      ) : props.value && typeof props.value.toString === 'function' ? (
+        props.value.toString()
       ) : (
-        row.value
+        props.value
       )
     },
     filterable: (colOpts && colOpts.filterable) || false
