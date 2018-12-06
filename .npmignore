@@ -5,3 +5,4 @@ app-template
 *.json
 .ignore
 stuff
+.prettierrc
