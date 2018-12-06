@@ -89,7 +89,7 @@ const App = () => (
         )
       )}
       columns={columns}
-      defaultPageSize={opts.pagination ? 50 : data.length}
+      defaultPageSize={opts.pagination ? 25 : data.length}
       showPagination={opts.pagination}
       className="-striped -highlight"
       defaultFilterMethod={(filter, row) => {
