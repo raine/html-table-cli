@@ -37,8 +37,8 @@ const generateHTML = (opts) =>
     const doc = cheerio.load(html)
     doc('head').append(`
     <script type="text/javascript" charset="utf-8">
-      window.HTML_TABLE_DATA = ${JSON.stringify(data)};
-      window.HTML_TABLE_OPTS = ${JSON.stringify(opts)};
+      window.HTML_TABLE_DATA = ${JSON.stringify(data).replace(/</g, '\\x3c')};
+      window.HTML_TABLE_OPTS = ${JSON.stringify(opts).replace(/</g, '\\x3c')};
     </script>`)
     return doc.html()
   })
