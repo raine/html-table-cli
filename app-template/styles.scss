@@ -34,5 +34,13 @@
   .rt-thead .rt-th {
     padding: 10px 5px;
     font-weight: 500;
+
+    &.-sort-desc {
+      box-shadow: inset 0 -3px 0 0 #42a5f5;
+    }
+
+    &.-sort-asc {
+      box-shadow: inset 0 3px 0 0 #42a5f5;
+    }
   }
 }
