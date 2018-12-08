@@ -1,12 +1,16 @@
 # html-table-cli
 
+<a href="https://raine.github.io/html-table-cli/github-trending.html">
+  <img align="right" width="240" src="https://raine.github.io/html-table-cli/github-trending_thumb.png"/>
+</a>
+
 Create interactive tables from JSON on the command-line.
 
 ## key features
 
 - takes JSON via stdin, writes a standalone HTML file to stdout
 - alternatively, view instantly in browser with `--open`
-- customize rendering with templates
+- customize column-specific rendering through arguments
 - uses [`react-table`](https://react-table.js.org/)
 
 ## install
@@ -58,8 +62,13 @@ curl -s https://github-trending-api.now.sh/repositories\?since=weekly |\
     --col.stars.width 100 \
     --col.forks.width 100
 ```
+https://raine.github.io/html-table-cli/github-trending.html
 
-**Output**: https://raine.github.io/html-table-cli/github-trending.html
+<details><summary>screenshot</summary>
+<a href="https://raine.github.io/html-table-cli/github-trending.png">
+<img src="https://raine.github.io/html-table-cli/github-trending.png"/>
+</a>
+</details>
 
 ### countries
 
@@ -83,3 +92,18 @@ curl -s https://restcountries.eu/rest/v2/all | \
     --col.population.cell '${population.toLocaleString()}' \
     --col.area.cell '${area.toLocaleString()}'
 ```
+
+https://raine.github.io/html-table-cli/countries.html
+
+<details><summary>screenshot</summary>
+<a href="https://raine.github.io/html-table-cli/countries.png">
+<img src="https://raine.github.io/html-table-cli/countries.png"/>
+</a>
+</details>
+
+## other notes
+
+Goes well with [`ramda-cli`](https://github.com/raine/ramda-cli). Manipulate the
+JSON before passing to `html-table-cli` or use to convert a csv file to json.
+
+e.g. `cat mydata.csv | ramda -i csv identity | html-table`
