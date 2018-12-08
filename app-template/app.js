@@ -21,15 +21,22 @@ console.log(`[debug] opts`, opts)
 console.log(`[debug] data`, data)
 
 const renderWithTemplateString = memoize(
-  (str, bindings, props) => ({
-    __html: new Function(
-      'with(this) { return eskape`' + str.replace(/`/g, '\\`') + '`}'
-    ).call({
-      ...bindings,
-      eskape
-    })
-  }),
+  (str, bindings, props) => {
+    let html
+    try {
+      html = new Function(
+        'with(this) { return eskape`' + str.replace(/`/g, '\\`') + '`}'
+      ).call({
+        ...bindings,
+        eskape
+      })
+    } catch (err) {
+      console.error(`Error parsing ${str}\n`, err)
+    }
+    return { __html: html }
+  },
   (str, bindings, props) =>
+    // prettier-ignore
     (props.column && props.data) ? `${props.column.id}__header` :
     (props.column && props.row) ? `${props.column.id}__${props.index}` : null
 )
