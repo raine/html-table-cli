@@ -80,5 +80,6 @@ curl -s https://restcountries.eu/rest/v2/all | \
     --col.tld.width 50 \
     --col.languages.cell '<span>${languages.map(x => x.name).join(", ")}</span>' \
     --col.languages.header 'Languages' \
-    --col.population.cell '${population.toLocaleString()}'
+    --col.population.cell '${population.toLocaleString()}' \
+    --col.area.cell '${area.toLocaleString()}'
 ```
