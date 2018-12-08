@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import ReactTable from 'react-table'
 import { mapValues, memoize } from 'lodash'
 import eskape from 'eskape'
+import dateformat from 'dateformat'
 
 import './reboot.css'
 import 'react-table/react-table.css'
@@ -73,6 +74,8 @@ const columns = columnKeys.map((key) => {
             props
           )}
         />
+      ) : props.value && colOpts && colOpts.type === 'date' ? (
+        dateformat(props.value)
       ) : props.value && typeof props.value.toString === 'function' ? (
         props.value.toString()
       ) : (
@@ -92,7 +95,9 @@ const App = () => (
     <ReactTable
       data={data.map((row) =>
         mapValues(row, (v, k) =>
-          opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) : v
+          // prettier-ignore
+          opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) :
+          opts.col[k] && opts.col[k].type === 'date' ? new Date(v) : v
         )
       )}
       columns={columns}
