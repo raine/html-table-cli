@@ -6,6 +6,9 @@ Usage: html-table [options]
   Render JSON as an interactive table to be viewed in a web browser.
   By default, reads JSON from stdin and renders HTML to stdout.
 
+  Expected structure of input is [ object, object, ... ], where each object is
+  of the same shape.
+
   -o, --open             write to a temp file and open in browser
   -h, --help             view help
 
