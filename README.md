@@ -19,6 +19,12 @@ Create interactive tables from JSON on the command-line.
 npm install -g html-table-cli
 ```
 
+## usage
+
+```sh
+cat data.json | html-table
+```
+
 ## options
 
 ```
@@ -49,6 +55,9 @@ Usage: html-table [options]
 
 ## examples
 
+The examples below use `npx` that comes with npm to install `html-table-cli` on
+demand, hence no installation is necessary to run them.
+
 ### trending repositories on github
 
 ```sh
@@ -67,7 +76,7 @@ curl -s https://github-trending-api.now.sh/repositories\?since=weekly |\
 ```
 https://raine.github.io/html-table-cli/github-trending.html
 
-<details><summary>screenshot</summary>
+<details><summary><strong>screenshot</strong></summary>
 <a href="https://raine.github.io/html-table-cli/github-trending.png">
 <img src="https://raine.github.io/html-table-cli/github-trending.png"/>
 </a>
@@ -98,7 +107,7 @@ curl -s https://restcountries.eu/rest/v2/all | \
 
 https://raine.github.io/html-table-cli/countries.html
 
-<details><summary>screenshot</summary>
+<details><summary><strong>screenshot</strong></summary>
 <a href="https://raine.github.io/html-table-cli/countries.png">
 <img src="https://raine.github.io/html-table-cli/countries.png"/>
 </a>
