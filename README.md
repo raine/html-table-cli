@@ -76,15 +76,11 @@ curl -s https://github-trending-api.now.sh/repositories\?since=weekly |\
 ```
 https://raine.github.io/html-table-cli/github-trending.html
 
-<details><summary><strong>screenshot</strong></summary>
-<a href="https://raine.github.io/html-table-cli/github-trending.png">
 <img src="https://raine.github.io/html-table-cli/github-trending.png"/>
-</a>
-</details>
 
 ### countries
 
-```
+```sh
 curl -s https://restcountries.eu/rest/v2/all | \
   npx html-table-cli -o \
     --cols flag,code,name,population,area,capital,tld,languages \
@@ -107,11 +103,7 @@ curl -s https://restcountries.eu/rest/v2/all | \
 
 https://raine.github.io/html-table-cli/countries.html
 
-<details><summary><strong>screenshot</strong></summary>
-<a href="https://raine.github.io/html-table-cli/countries.png">
 <img src="https://raine.github.io/html-table-cli/countries.png"/>
-</a>
-</details>
 
 ## other notes
 
