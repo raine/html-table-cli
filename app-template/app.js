@@ -96,7 +96,7 @@ const App = () => (
       data={data.map((row) =>
         mapValues(row, (v, k) =>
           // prettier-ignore
-          opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v) :
+          opts.col[k] && opts.col[k].parse ? opts.col[k].parse(v, row) :
           opts.col[k] && opts.col[k].type === 'date' ? new Date(v) : v
         )
       )}
