@@ -1,7 +1,7 @@
 {
   "name": "html-table-cli",
   "description": "Create interactive tables for browser on the command-line from JSON",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
